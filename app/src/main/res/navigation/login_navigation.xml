@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_navigation"
+    app:startDestination="@id/mobileNumberFragment">
+
+    <fragment
+        android:id="@+id/mobileNumberFragment"
+        android:name="com.atta.oncs.MobileNumberFragment"
+        android:label="fragment_mobile_number"
+        tools:layout="@layout/fragment_mobile_number" >
+        <action
+            android:id="@+id/action_mobileNumberFragment_to_verificationCodeFragment"
+            app:destination="@id/verificationCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.atta.oncs.RegisterFragment"
+        android:label="RegisterFragment" >
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
+        <argument
+            android:name="region"
+            app:argType="integer" />
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificationCodeFragment"
+        android:name="com.atta.oncs.VerificationCodeFragment"
+        android:label="fragment_verfication_code"
+        tools:layout="@layout/fragment_verfication_code" >
+        <action
+            android:id="@+id/action_verificationCodeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
+        <argument
+            android:name="regionId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

@@ -16,7 +16,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 2000;
     // Session Manager Class
-    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
 
-        // Session class instance
-        session = new SessionManager(getApplicationContext());
+        changeLanguage();
 
         new Handler().postDelayed(new Runnable() {
 
@@ -40,21 +38,23 @@ public class SplashScreenActivity extends AppCompatActivity {
                 // Start your app main activity
 
 
-                Locale locale = new Locale("ar");
-                session.setLanguage("ar");
-                Locale.setDefault(locale);
-                Configuration config = new Configuration();
-                config.locale = locale;
-                getResources().updateConfiguration(config,getResources().getDisplayMetrics());
 
-
-
-                session.checkLogin();
+                SessionManager.getInstance(SplashScreenActivity.this).checkLogin();
 
                 // close this activity
                 finish();
 
             }
         }, SPLASH_TIME_OUT);
+    }
+
+
+    private void changeLanguage() {
+        Locale locale = new Locale("ar");
+        SessionManager.getInstance(this).setLanguage("ar");
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
     }
 }

@@ -50,9 +50,10 @@ public interface APIService {
 
 
     @FormUrlEncoded
-    @POST("get_profile")
-    Call<Profile> getProfile(
-            @Field("user_id") int userId
+    @POST("user")
+    Call<User> getProfile(
+            @Query("action") String action,
+            @Field("id") int userId
     );
 
     @GET("region")
@@ -62,8 +63,18 @@ public interface APIService {
 
 
     @GET("region")
-    Call<Region[]> getUserRegion(
-            @Query("action") String action
+    Call<Region> getUserRegion(
+            @Query("action") String action,
+            @Query("id") int id
+    );
+
+
+
+    @GET("user")
+    Call<ArrayList<Provider>> getProviders(
+            @Query("action") String action,
+            @Query("cid") int cId,
+            @Query("rid") int rId
     );
 
 

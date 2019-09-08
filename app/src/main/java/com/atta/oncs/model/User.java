@@ -5,11 +5,13 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
 
+    @SerializedName("id")
     private int id;
     @SerializedName("region")
     private int regionId;
     @SerializedName("fullname")
     private String username;
+    @SerializedName("email")
     private String email;
     @SerializedName("mobileno")
     private String  phone;

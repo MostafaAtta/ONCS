@@ -36,7 +36,9 @@ public class SessionManager {
     public static final String KEY_EMAIL = "email";
 
 
-    private static final String KEY_USER_LOCATION = "region";
+    private static final String KEY_USER_REGION_ID = "region";
+
+    private static final String KEY_ORDER_REGION_ID = "location_region";
 
     private static final String KEY_USER_REGION_NAME = "regionName";
 
@@ -119,6 +121,22 @@ public class SessionManager {
         return pref.getString(KEY_USER_REGION_NAME, "");
     }
 
+
+    public void setOrderregionId(int region){
+
+        // Storing national ID in pref
+        editor.putInt(KEY_ORDER_REGION_ID, region);
+
+
+        // commit changes
+        editor.commit();
+    }
+
+
+    public int getOrderRegionId(){
+        return pref.getInt(KEY_ORDER_REGION_ID, 0);
+    }
+
     // Get Login State
     public String getEmail(){
         return pref.getString(KEY_EMAIL, "no email");
@@ -157,7 +175,7 @@ public class SessionManager {
         editor.putString(KEY_USER_NAME, user.getUsername());
         editor.putString(KEY_EMAIL, user.getEmail());
         editor.putString(KEY_USER_PHONE, user.getPhone());
-        editor.putInt(KEY_USER_LOCATION, user.getRegionId());
+        editor.putInt(KEY_USER_REGION_ID, user.getRegionId());
         editor.putString(KEY_USER_IMAGE, user.getProfileImage());
         editor.apply();
 
@@ -262,7 +280,7 @@ public class SessionManager {
         editor.commit();
     }
 
-    public String getUserLocation() {
-        return pref.getString(KEY_USER_LOCATION, "");
+    public int getUserRegionId() {
+        return pref.getInt(KEY_USER_REGION_ID, 0);
     }
 }

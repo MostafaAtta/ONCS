@@ -1,29 +1,35 @@
 package com.atta.oncs.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atta.oncs.R;
+import com.atta.oncs.ui.home.HomeFragmentDirections;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
-    private Context mContext;
+    private Activity activity;
+
+    private Context context;
 
     private List<Category> categories;
 
 
-    public CategoryAdapter(Context mContext, List<Category> categories) {
-        this.mContext = mContext;
+    public CategoryAdapter(Context context, Activity activity, List<Category> categories) {
+        this.context = context;
+        this.activity = activity;
         this.categories = categories;
     }
 
@@ -32,7 +38,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.category_list_item, parent, false);
+                .inflate(R.layout.category_grid_item, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -45,18 +51,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
 
         myViewHolder.categoryName.setText(category.getName());
-        //myViewHolder.categoryIcon.setImageResource(category.getImage());
 
+        Picasso.get()
+                .load(category.getCategoryIcon())
+                .resize(120, 120)
+                .centerCrop()
+                .into(myViewHolder.categoryIcon);
 
-        myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                int cId = category.getId();
 
-                /*Intent intent = new Intent(mContext, CurrencyConverterActivity.class);
-                intent.putExtra("category", category);
-                mContext.startActivity(intent);*/
+                int rId = SessionManager.getInstance(context).getOrderRegionId();
 
+                String categoryName= category.getName();
+
+
+                Navigation.findNavController(activity, R.id.nav_host_fragment).
+                        navigate(HomeFragmentDirections.actionNavHomeToProviderFragment2(rId, cId,  categoryName));
 
             }
         });
@@ -82,7 +96,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         ImageView categoryIcon;
         TextView categoryName;
-        LinearLayout linearLayout;
 
 
 
@@ -91,7 +104,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
             categoryIcon = itemView.findViewById(R.id.flag);
             categoryName = itemView.findViewById(R.id.name);
-            linearLayout = itemView.findViewById(R.id.linear);
 
 
 

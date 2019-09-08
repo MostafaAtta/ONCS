@@ -29,5 +29,7 @@ public class APIUrl {
 
     public static final String ACTION_CHANGE_PROFILE_IMAGE = "changeProfileimage";
 
+    public static final String ACTION_GET_PROVIDERS = "get_spbycategory";
+
 
 }

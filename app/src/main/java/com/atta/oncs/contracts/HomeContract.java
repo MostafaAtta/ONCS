@@ -14,6 +14,15 @@ public interface HomeContract {
         void showRecyclerView(ArrayList<Category> categories);
 
         void setSpinner(ArrayList<Region> regions);
+
+        void updateUserRegion(String regionName);
+
+        void showProgress();
+
+        void hideProgress();
+
+        void setFlipperView();
+
     }
 
     interface Presenter{
@@ -21,5 +30,7 @@ public interface HomeContract {
         void getRegions();
 
         void getCategories();
+
+        void getUserRegion(int id);
     }
 }

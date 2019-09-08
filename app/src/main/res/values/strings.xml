@@ -8,7 +8,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">الاقسام</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
@@ -26,6 +26,34 @@
     <string name="prompt_mail">البريد الالكتروني</string>
     <string name="enter_code">برجاء ادخال كود التفعيل المرسل للرقم</string>
     <string name="confirm">تأكيد</string>
-    <string name="loading">جاؤي التحميل</string>
+    <string name="loading">جاري التحميل</string>
     <string name="resend">أعد ارسال الكود</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="area">المنطقة</string>
+    <string name="add_name">اسم العنوان (المنزل )</string>
+    <string name="street">اسم الشارع</string>
+    <string name="building_num">رقم العمارة</string>
+    <string name="floor">رقم الدور</string>
+    <string name="apartment">رقم الشقة</string>
+    <string name="landmark">علامة مميزة</string>
+    <string name="save">اضافة</string>
+    <string name="my_addresses_info">لا توجد عنواين مسجلة</string>
+    <string name="my_addresses_info_txt">أضغط هنا لأضافة عنوان</string>
+    <string name="action_add">اضافة عنوان</string>
+    <string name="profile">حسابي الشخصي</string>
+    <string name="account_info">البيانات الشخصية</string>
+    <string name="my_orders">الطلبات السابقة</string>
+    <string name="menu_settings">الاعدادات</string>
+    <string name="menu_logout">تسجيل الخروج</string>
+    <string name="pic_info">الصوره الشخصيه</string>
+    <string name="المنطقة">Location</string>
+    <string name="update_photo">تحديث</string>
+    <string name="location">المنطقة</string>
+    <string name="address_info">العناوين</string>
+    <string name="edit_addresses">أضافة او تغير عنوان</string>
+    <string name="edit_mobile">تحديت الموبايل</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
+

@@ -23,6 +23,47 @@ public class HomePresenter implements HomeContract.Presenter{
         mView = view;
     }
 
+
+    @Override
+    public void getUserRegion(int id) {
+
+        //building retrofit object
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIUrl.BASE_URL)
+                .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+                .build();
+
+        //Defining retrofit api service
+        APIService service = retrofit.create(APIService.class);
+
+        //Defining the user object as we need to pass it with the call
+        //User user = new User(name, email, password, password, birthdayString, locationSting);
+
+        //defining the call
+        Call<Region> call = service.getUserRegion(APIUrl.ACTION_GET_BY_ID, id);
+
+        //calling the api
+        call.enqueue(new Callback<Region>() {
+            @Override
+            public void onResponse(Call<Region> call, Response<Region> response) {
+
+
+                assert response.body() != null;
+
+                mView.updateUserRegion(response.body().getName());
+
+                getCategories();
+
+            }
+
+            @Override
+            public void onFailure(Call<Region> call, Throwable t) {
+
+                mView.showMessage(t.getMessage());
+            }
+        });
+    }
+
     @Override
     public void getRegions() {
 
@@ -96,6 +137,7 @@ public class HomePresenter implements HomeContract.Presenter{
 
 
                     mView.showRecyclerView(response.body());
+
                     /*if (response.body().getStatus() == 2){
                         mView.navigateToMain();
                     }else {
@@ -105,6 +147,7 @@ public class HomePresenter implements HomeContract.Presenter{
                 }else {
                     mView.showMessage("An error");
                 }
+                //mView.hideProgress();
 
             }
 
@@ -112,6 +155,7 @@ public class HomePresenter implements HomeContract.Presenter{
             public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
+                mView.hideProgress();
             }
         });
     }

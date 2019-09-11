@@ -183,6 +183,23 @@ public class SessionManager {
         //QueryUtils.removeCartItems( _context, null);
     }
 
+    public void upadteUser(User user){
+
+        // Storing login value as TRUE
+        editor.putInt(KEY_ID, user.getId());
+        editor.putString(KEY_USER_NAME, user.getUsername());
+        editor.putString(KEY_EMAIL, user.getEmail());
+        editor.putString(KEY_USER_PHONE, user.getPhone());
+        editor.putInt(KEY_USER_REGION_ID, user.getRegionId());
+        editor.putString(KEY_USER_IMAGE, user.getProfileImage());
+        editor.remove(KEY_USER_REGION_NAME);
+        editor.apply();
+
+
+        //QueryUtils.removeCartItems( _context, null);
+    }
+
+
 
     public void updatePassword (String newpassword){
         // Storing Password in pref

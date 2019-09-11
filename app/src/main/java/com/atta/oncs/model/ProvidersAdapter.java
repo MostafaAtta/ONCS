@@ -66,7 +66,7 @@ public class ProvidersAdapter extends RecyclerView.Adapter<ProvidersAdapter.MyVi
 
 
                 Navigation.findNavController(activity, R.id.nav_host_fragment).
-                        navigate(ProviderFragmentDirections.actionProviderFragmentToOrderFragment());
+                        navigate(ProviderFragmentDirections.actionProviderFragmentToOrderFragment(provider.getId()));
 
             }
         });

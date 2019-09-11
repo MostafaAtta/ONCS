@@ -40,7 +40,7 @@ public class AddressesActivity extends AppCompatActivity implements AddressesCon
 
     RelativeLayout addressesLayout;
 
-    LinearLayout testLayout;
+    LinearLayout textLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class AddressesActivity extends AppCompatActivity implements AddressesCon
 
         recyclerView = findViewById(R.id.my_add_recycler);
         addressesLayout = findViewById(R.id.relativeLayout);
-        testLayout = findViewById(R.id.my_addresses_info);
+        textLayout = findViewById(R.id.my_addresses_info);
 
         infoTextView = findViewById(R.id.my_addresses_info_tv);
 
@@ -75,6 +75,13 @@ public class AddressesActivity extends AppCompatActivity implements AddressesCon
         SpannableString content = new SpannableString(mystring);
         content.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
         infoTextView.setText(content);
+
+        infoTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewAddress();
+            }
+        });
     }
 
 
@@ -110,8 +117,8 @@ public class AddressesActivity extends AppCompatActivity implements AddressesCon
     public void showRecyclerView(ArrayList<Address> addresses) {
 
         recyclerView.setVisibility(View.VISIBLE);
-        infoTextView.setVisibility(View.GONE);
-        myAdapter = new AddressesAdapter(this, addresses);
+        textLayout.setVisibility(View.GONE);
+        myAdapter = new AddressesAdapter(this, addresses, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myAdapter);
@@ -138,7 +145,7 @@ public class AddressesActivity extends AppCompatActivity implements AddressesCon
 
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
-                    .make(addressesLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
+                    .make(addressesLayout, name + " removed from address!", Snackbar.LENGTH_LONG);
             snackbar.setAction("UNDO", view -> {
 
                 undo.set(true);
@@ -169,7 +176,7 @@ public class AddressesActivity extends AppCompatActivity implements AddressesCon
     public void updateText() {
 
         recyclerView.setVisibility(View.GONE);
-        testLayout.setVisibility(View.VISIBLE);
+        textLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

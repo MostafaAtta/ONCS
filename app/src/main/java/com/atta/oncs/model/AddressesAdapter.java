@@ -21,16 +21,26 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.MyVi
 
     private List<Address> addresses;
 
-    public AddressesAdapter(Context mContext, List<Address> properties) {
+    private boolean inProfile;
+
+    public AddressesAdapter(Context mContext, List<Address> properties, boolean inProfile) {
         this.mContext = mContext;
         this.addresses = properties;
+        this.inProfile = inProfile;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.address_list_item, viewGroup, false);
+        View itemView;
+
+        if (inProfile){
+            itemView = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.profile_addresses_list_item, viewGroup, false);
+        } else {
+            itemView = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.address_list_item, viewGroup, false);
+        }
 
         return new MyViewHolder(itemView);
     }
@@ -48,7 +58,9 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.MyVi
 
         myViewHolder.addressName.setText(name);
         myViewHolder.area.setText(area);
-        myViewHolder.fullAddress.setText(String.valueOf(fullAddress));
+        if (!inProfile) {
+            myViewHolder.fullAddress.setText(fullAddress);
+        }
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +85,15 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            /*addressName = itemView.findViewById(R.id.address_name_txt);
-            area = itemView.findViewById(R.id.area_txt);
-            fullAddress = itemView.findViewById(R.id.full_address_txt);*/
+            if(inProfile) {
+                addressName = itemView.findViewById(R.id.address_name);
+                area = itemView.findViewById(R.id.address_area);
+            }else {
+
+                addressName = itemView.findViewById(R.id.address_name_txt);
+                area = itemView.findViewById(R.id.area_txt);
+                fullAddress = itemView.findViewById(R.id.full_address_txt);
+            }
         }
     }
 

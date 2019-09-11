@@ -3,9 +3,13 @@ package com.atta.oncs.presenter;
 import com.atta.oncs.contracts.ProfileContract;
 import com.atta.oncs.model.APIService;
 import com.atta.oncs.model.APIUrl;
+import com.atta.oncs.model.Address;
 import com.atta.oncs.model.ImageResponse;
+import com.atta.oncs.model.Region;
 import com.atta.oncs.model.Result;
 import com.atta.oncs.model.User;
+
+import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -13,6 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfilePresenter implements ProfileContract.Presenter{
 
@@ -26,7 +31,7 @@ public class ProfilePresenter implements ProfileContract.Presenter{
 
 
     @Override
-    public void sendImage(final String mobileNumber, final int userId, final int region, MultipartBody.Part fileupload, RequestBody filename, final String username, final String email){
+    public void sendImage(final String mobileNumber, MultipartBody.Part fileupload, RequestBody filename){
 
         mView.showProgress();
         //Defining retrofit api service
@@ -47,7 +52,6 @@ public class ProfilePresenter implements ProfileContract.Presenter{
                 if(response.isSuccessful()){
                     if (response.body()[0].getMobilNumber().equals(mobileNumber))
                         mView.showMessage("Success");
-                    updateProfile(mobileNumber, userId, region, username, email);
                 }
             }
 
@@ -97,13 +101,61 @@ public class ProfilePresenter implements ProfileContract.Presenter{
                     //mView.showMessage("An error");
                 }
 
+                getRegions(id);
+
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
+                getRegions(id);
                 //mView.showMessage(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getRegions(int id) {
+
+        //building retrofit object
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIUrl.BASE_URL)
+                .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+                .build();
+
+        //Defining retrofit api service
+        APIService service = retrofit.create(APIService.class);
+
+        //Defining the user object as we need to pass it with the call
+        //User user = new User(name, email, password, password, birthdayString, locationSting);
+
+        //defining the call
+        Call<ArrayList<Region>> call = service.getRegions(APIUrl.ACTION_GET_ALL);
+
+        //calling the api
+        call.enqueue(new Callback<ArrayList<Region>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Region>> call, Response<ArrayList<Region>> response) {
+
+
+                assert response.body() != null;
+                if (response.body() != null){
+
+                    mView.setSpinner(response.body());
+
+                }else {
+                    mView.showMessage("An error");
+                }
+                getAddresses(id);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Region>> call, Throwable t) {
+
+                mView.showMessage(t.getMessage());
+
+                getAddresses(id);
             }
         });
     }
@@ -139,7 +191,7 @@ public class ProfilePresenter implements ProfileContract.Presenter{
 
 
                         mView.showMessage("Done");
-                        //mView.navigateToMain(response.body()[0].getUser());
+                        mView.navigateToMain(response.body()[0].getUser());
 
                     }
 
@@ -157,5 +209,58 @@ public class ProfilePresenter implements ProfileContract.Presenter{
             }
         });
     }
+
+
+    @Override
+    public void getAddresses(int userId) {
+
+        //building retrofit object
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIUrl.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //Defining retrofit api service
+        APIService service = retrofit.create(APIService.class);
+
+        //Defining the user object as we need to pass it with the call
+        //User user = new User(name, email, password, phone, birthdayString, locationSting);
+
+        //defining the call
+        Call<ArrayList<Address>> call = service.getAddresses(APIUrl.ACTION_GET_ADDRESSES, userId);
+
+        //calling the api
+        call.enqueue(new Callback<ArrayList<Address>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Address>> call, Response<ArrayList<Address>> response) {
+
+                if (response.body() != null){
+                    if (response.body() != null){
+
+                        ArrayList<Address> addresses = response.body();
+
+                        if (addresses.size() > 0){
+
+                            mView.showAddresses(addresses);
+                        }else {
+
+                            mView.showAddressesMessage();
+                        }
+
+                    }
+                }else {
+                    mView.showMessage("An error");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Address>> call, Throwable t) {
+
+                mView.showMessage(t.getMessage());
+            }
+        });
+    }
+
 
 }

@@ -15,6 +15,7 @@ import com.atta.oncs.contracts.NewAddressContract;
 import com.atta.oncs.model.APIService;
 import com.atta.oncs.model.APIUrl;
 import com.atta.oncs.model.Address;
+import com.atta.oncs.model.AddressResult;
 import com.atta.oncs.model.Result;
 
 import org.json.JSONArray;
@@ -187,7 +188,8 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
 
 
         //defining the call
-        Call<Result> call = service.addAddress(
+        Call<AddressResult[]> call = service.addAddress(
+                APIUrl.ACTION_ADD_ADDRESS,
                 address.getUserId(),
                 address.getFloor(),
                 address.getApartmentNumber(),
@@ -202,30 +204,28 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
         );
 
         //calling the api
-        call.enqueue(new Callback<Result>() {
+        call.enqueue(new Callback<AddressResult[]>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(Call<AddressResult[]> call, Response<AddressResult[]> response) {
                 //hiding progress dialog
 
 
                 //displaying the message from the response as toast
                 if (response.body() != null) {
 
+                    if (response.body()[0].getStatus() == 1) {
 
-                    /*mView.showMessage(response.body().getMessage());
-
-
-                    if (!response.body().getError()){
+                        mView.showMessage("تم اضافة العنوان");
 
 
                         mView.moveToAddressesActivity();
-                    }*/
+                    }
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<AddressResult[]> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
 
@@ -249,8 +249,8 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
 
         //defining the call
         Call<Result> call = service.editAddress(
+                APIUrl.ACTION_EDIT_ADDRESS,
                 address.getId(),
-                address.getUserId(),
                 address.getFloor(),
                 address.getApartmentNumber(),
                 address.getBuildingNumber(),
@@ -274,14 +274,13 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
                 if (response.body() != null) {
 
 
-                    /*mView.showMessage(response.body().getMessage());
+                    if (response.body().getStatus() == 1) {
 
-
-                    if (!response.body().getError()){
+                        mView.showMessage("تم تعديل العنوان");
 
 
                         mView.moveToAddressesActivity();
-                    }*/
+                    }
 
                 }
             }

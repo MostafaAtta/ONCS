@@ -6,7 +6,6 @@ import com.atta.oncs.contracts.AddressesContract;
 import com.atta.oncs.model.APIService;
 import com.atta.oncs.model.APIUrl;
 import com.atta.oncs.model.Address;
-import com.atta.oncs.model.Addresses;
 import com.atta.oncs.model.Result;
 
 import java.util.ArrayList;
@@ -44,17 +43,17 @@ public class AddressesPresenter implements AddressesContract.Presenter {
         //User user = new User(name, email, password, phone, birthdayString, locationSting);
 
         //defining the call
-        Call<Addresses> call = service.getAddresses(userId);
+        Call<ArrayList<Address>> call = service.getAddresses(APIUrl.ACTION_GET_ADDRESSES, userId);
 
         //calling the api
-        call.enqueue(new Callback<Addresses>() {
+        call.enqueue(new Callback<ArrayList<Address>>() {
             @Override
-            public void onResponse(Call<Addresses> call, Response<Addresses> response) {
+            public void onResponse(Call<ArrayList<Address>> call, Response<ArrayList<Address>> response) {
 
                 if (response.body() != null){
-                    if (response.body().getAddresses() != null){
+                    if (response.body() != null){
 
-                        ArrayList<Address> addresses = response.body().getAddresses();
+                        ArrayList<Address> addresses = response.body();
 
                         if (addresses.size() > 0){
 
@@ -72,7 +71,7 @@ public class AddressesPresenter implements AddressesContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<Addresses> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Address>> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
             }

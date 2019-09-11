@@ -45,15 +45,21 @@
     <string name="my_orders">الطلبات السابقة</string>
     <string name="menu_settings">الاعدادات</string>
     <string name="menu_logout">تسجيل الخروج</string>
-    <string name="pic_info">الصوره الشخصيه</string>
+    <string name="pic_info">الصورة الشخصية</string>
     <string name="المنطقة">Location</string>
     <string name="update_photo">تحديث</string>
     <string name="location">المنطقة</string>
-    <string name="address_info">العناوين</string>
+    <string name="address_info">بيانات الاتصال</string>
     <string name="edit_addresses">أضافة او تغير عنوان</string>
     <string name="edit_mobile">تحديت الموبايل</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prompt_order">اكتب الطلبات هنا</string>
+    <string name="add">أضافة طلبك</string>
+    <string name="add_image_to_order">أضف صور للطلبك</string>
+    <string name="add_record_to_order">اضف تسجيل للطلبك</string>
+    <string name="action_delete">مسح</string>
+    <string name="skip">تخطي</string>
 </resources>
 

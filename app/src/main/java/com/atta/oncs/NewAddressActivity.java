@@ -178,6 +178,7 @@ public class NewAddressActivity extends AppCompatActivity implements NewAddressC
                     if (lat != null & lon != null ){
                         LatLng myLatLng = new LatLng(latitude, longitude);
 
+                        mMap.clear();
                         mMap.addMarker(new MarkerOptions().position(myLatLng).title(""));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 16.0f));
                     }
@@ -220,7 +221,7 @@ public class NewAddressActivity extends AppCompatActivity implements NewAddressC
         // Inflate the menu; this adds items to the action bar if it is present.
         if (!addEdie){
 
-            //getMenuInflater().inflate(R.menu.cart, menu);
+            getMenuInflater().inflate(R.menu.address, menu);
         }
         return !addEdie;
     }
@@ -230,7 +231,7 @@ public class NewAddressActivity extends AppCompatActivity implements NewAddressC
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        /*int id = item.getItemId();
+        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.delete) {
@@ -241,7 +242,7 @@ public class NewAddressActivity extends AppCompatActivity implements NewAddressC
             }
 
             return !addEdie;
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -250,6 +251,7 @@ public class NewAddressActivity extends AppCompatActivity implements NewAddressC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
 
         mMap.setOnMapClickListener(latLng -> {
             Intent intent1 = new Intent(NewAddressActivity.this, MapsActivity.class);

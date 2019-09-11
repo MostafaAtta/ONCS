@@ -105,6 +105,8 @@ public class HomePresenter implements HomeContract.Presenter{
             public void onFailure(Call<ArrayList<Region>> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
+
+                getCategories();
             }
         });
     }

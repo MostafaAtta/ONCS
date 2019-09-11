@@ -1,14 +1,38 @@
 package com.atta.oncs.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Address implements Serializable {
 
-    private int id, userId;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("uid")
+    private int userId;
 
-    private String fullAddress, buildingNumber, area, addressName, street, landMark, floor, apartmentNumber;
+    @SerializedName("fulladdress")
+    private String fullAddress;
+    @SerializedName("buildingNumber")
+    private String buildingNumber;
+    @SerializedName("area")
+    private String area;
+    @SerializedName("addressname")
+    private String addressName;
+    @SerializedName("street")
+    private String street;
+    @SerializedName("landmark")
+    private String landMark;
+    @SerializedName("floor")
+    private String floor;
+    @SerializedName("appartmentNumber")
+    private String apartmentNumber;
 
-    private float latitude, longitude;
+    @SerializedName("latitude")
+    private float latitude;
+    @SerializedName("longitude")
+    private float longitude;
+
 
     public Address(int id, int userId, String floor, String apartmentNumber, String buildingNumber, String area,
                    String addressName, String fullAddress, String street, String landMark, float latitude, float longitude) {

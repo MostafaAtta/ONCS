@@ -31,5 +31,20 @@ public class APIUrl {
 
     public static final String ACTION_GET_PROVIDERS = "get_spbycategory";
 
+    public static final String ACTION_ADD_ORDER = "_1ststep";
+
+    public static final String ACTION_ADD_ORDER_IMAGE = "_3rdstep";
+
+    public static final String ACTION_ADD_ORDER_RECORED = "_2ndstep";
+
+    public static final String ACTION_ADD_ADDRESS = "insert_address";
+
+    public static final String ACTION_EDIT_ADDRESS = "update_address";
+
+    public static final String ACTION_DELETE_ADDRESS = "delete_address";
+
+    public static final String ACTION_GET_ADDRESSES = "getbyUid";
+
+
 
 }

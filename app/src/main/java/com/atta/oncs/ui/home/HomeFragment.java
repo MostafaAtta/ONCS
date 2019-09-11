@@ -180,6 +180,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, Adapter
 
 
         SessionManager.getInstance(getContext()).setOrderregionId(mRegions.get(selectedItem).getId());
+
+        SessionManager.getInstance(getContext()).setUserRegionName(regionName);
     }
 
     @Override

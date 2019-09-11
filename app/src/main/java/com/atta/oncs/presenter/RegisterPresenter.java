@@ -42,9 +42,10 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                 //hiding progress dialog
                 mView.hideProgress();
                 if(response.isSuccessful()){
-                    if (response.body()[0].getMobilNumber().equals(mobileNumber))
+                    if (response.body()[0].getMobilNumber().equals(mobileNumber)) {
                         mView.showMessage("Success");
-                    updateProfile(mobileNumber, userId, region, username, email);
+                        updateProfile(mobileNumber, userId, region, username, email);
+                    }
                 }
             }
 

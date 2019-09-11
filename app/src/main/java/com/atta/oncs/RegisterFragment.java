@@ -36,25 +36,25 @@ import okhttp3.RequestBody;
 public class RegisterFragment extends Fragment implements RegisterContract.View {
 
 
-    SessionManager sessionManager;
+    private SessionManager sessionManager;
     private ImageView imageView;
     private ProgressDialog progressDialog;
 
-    TextInputEditText usernameText, emailText;
+    private TextInputEditText usernameText, emailText;
 
-    Button register;
+    private Button register;
 
     int regionId, userId;
 
-    String mobileNumber, username, email;
+    private String mobileNumber, username, email;
 
-    File file;
+    private File file;
 
-    RequestBody requestBody;
-    MultipartBody.Part fileupload ;
-    RequestBody filename ;
+    private RequestBody requestBody;
+    private MultipartBody.Part fileupload ;
+    private RequestBody filename ;
 
-    RegisterPresenter registerPresenter;
+    private RegisterPresenter registerPresenter;
 
     @Nullable
     @Override

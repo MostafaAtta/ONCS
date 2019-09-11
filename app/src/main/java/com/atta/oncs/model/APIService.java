@@ -11,7 +11,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -94,6 +93,7 @@ public interface APIService {
 
     );
 
+
     @Multipart
     @POST("user")
     Call<ImageResponse[]> postImage(
@@ -104,10 +104,45 @@ public interface APIService {
             @Part("name") RequestBody name
     );
 
-    @FormUrlEncoded
-    @POST("get_addresses")
-    Call<Addresses> getAddresses(
-            @Field("user_id") int userId
+    @POST("request")
+    Call<OrderResult[]> addOrder(
+            @Query("action") String action,
+            @Query("uid") int id,
+            @Query("spid") int providerId,
+            @Query("request") String request
+
+    );
+
+    @Multipart
+    @POST("request")
+    Call<OrderResult[]> addOrderImages(
+            @Query("action") String action,
+            @Query("id") int id,
+            @Query("filevoicename") String fileName1,
+            @Part MultipartBody.Part filevoicename1,
+            @Part("name") RequestBody name1,
+            @Query("filevoicename") String fileName2,
+            @Part MultipartBody.Part filevoicename2,
+            @Part("name") RequestBody nam2,
+            @Query("filevoicename") String fileName3,
+            @Part MultipartBody.Part filevoicename3,
+            @Part("name") RequestBody name3
+    );
+
+    @Multipart
+    @POST("request")
+    Call<OrderResult[]> addOrderVoice(
+            @Query("action") String action,
+            @Query("uid") int id,
+            @Query("filevoicename") String fileName,
+            @Part MultipartBody.Part filevoicename,
+            @Part("name") RequestBody name
+    );
+
+    @POST("user")
+    Call<ArrayList<Address>> getAddresses(
+            @Query("action") String action,
+            @Query("uid") int userId
     );
 
     @DELETE("remove_address/{id}")
@@ -115,44 +150,45 @@ public interface APIService {
             @Path("id") int id
     );
 
-    @FormUrlEncoded
-    @POST("add_address")
-    Call<Result> addAddress(
-            @Field("user_id") int userId,
-            @Field("floor") String floor,
-            @Field("apartmentNumber") String apartmentNumber,
-            @Field("buildingNumber") String buildingNumber,
-            @Field("area") String area,
-            @Field("addressName") String addressName,
-            @Field("fullAddress") String fullAddress,
-            @Field("street") String street,
-            @Field("landMark") String landMark,
-            @Field("latitude") float latitude,
-            @Field("longitude") float longitude
+    @POST("user")
+    Call<AddressResult[]> addAddress(
+            @Query("action") String action,
+            @Query("uid") int userId,
+            @Query("floor") String floor,
+            @Query("appartmentNumber") String apartmentNumber,
+            @Query("buildingNumber") String buildingNumber,
+            @Query("area") String area,
+            @Query("addressname") String addressName,
+            @Query("fulladdress") String fullAddress,
+            @Query("street") String street,
+            @Query("landmark") String landMark,
+            @Query("latitude") float latitude,
+            @Query("longitude") float longitude
 
     );
 
 
-    @PUT("edit_address/{id}/{user_id}/{floor}/{apartmentNumber}/{buildingNumber}/{area}/{addressName}/{fullAddress}/{street}/{landMark}/{latitude}/{longitude}")
+    @POST("user")
     Call<Result> editAddress(
-            @Path("id") int id,
-            @Path("user_id") int userId,
-            @Path("floor") String floor,
-            @Path("apartmentNumber") String apartmentNumber,
-            @Path("buildingNumber") String buildingNumber,
-            @Path("area") String area,
-            @Path("addressName") String addressName,
-            @Path("fullAddress") String fullAddress,
-            @Path("street") String street,
-            @Path("landMark") String landMark,
-            @Path("latitude") float latitude,
-            @Path("longitude") float longitude
+            @Query("action") String action,
+            @Query("id") int id,
+            @Query("floor") String floor,
+            @Query("appartmentNumber") String apartmentNumber,
+            @Query("buildingNumber") String buildingNumber,
+            @Query("area") String area,
+            @Query("addressname") String addressName,
+            @Query("fulladdress") String fullAddress,
+            @Query("street") String street,
+            @Query("landmark") String landMark,
+            @Query("latitude") float latitude,
+            @Query("longitude") float longitude
 
     );
 
-    @DELETE("remove_address/{id}")
+    @DELETE("user")
     Call<Result> deleteAddress(
-            @Path("id") int id
+            @Query("action") String action,
+            @Query("id") int id
     );
 
 

@@ -99,6 +99,11 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
         boolean valid = true;
 
+
+        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
+
         if (file == null) {
             showMessage("برجاء احتيار صورة لحسابك");
             valid = false;
@@ -116,7 +121,12 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
         if(email.isEmpty()){
 
-            emailText.setError("ادحل البريد الايكتروني الخاص بك");
+            emailText.setError("ادحل البريد الالكتروني الخاص بك");
+            emailText.requestFocus();
+            valid = false;
+        }else if(!email.matches(emailPattern)){
+
+            emailText.setError("ادحل بريد الكتروني صحيح");
             emailText.requestFocus();
             valid = false;
         }else {

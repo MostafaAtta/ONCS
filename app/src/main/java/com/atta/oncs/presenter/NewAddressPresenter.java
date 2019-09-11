@@ -16,7 +16,6 @@ import com.atta.oncs.model.APIService;
 import com.atta.oncs.model.APIUrl;
 import com.atta.oncs.model.Address;
 import com.atta.oncs.model.AddressResult;
-import com.atta.oncs.model.Result;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -248,7 +247,7 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
 
 
         //defining the call
-        Call<Result> call = service.editAddress(
+        Call<AddressResult[]> call = service.editAddress(
                 APIUrl.ACTION_EDIT_ADDRESS,
                 address.getId(),
                 address.getFloor(),
@@ -264,9 +263,9 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
         );
 
         //calling the api
-        call.enqueue(new Callback<Result>() {
+        call.enqueue(new Callback<AddressResult[]>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(Call<AddressResult[]> call, Response<AddressResult[]> response) {
                 //hiding progress dialog
 
 
@@ -274,7 +273,7 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
                 if (response.body() != null) {
 
 
-                    if (response.body().getStatus() == 1) {
+                    if (response.body()[0].getStatus() == 1) {
 
                         mView.showMessage("تم تعديل العنوان");
 
@@ -286,7 +285,7 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<AddressResult[]> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
 
@@ -308,12 +307,12 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
 
 
         //defining the call
-        Call<Result> call = service.removeAddress(id);
+        Call<AddressResult[]> call = service.deleteAddress(APIUrl.ACTION_DELETE_ADDRESS, id);
 
         //calling the api
-        call.enqueue(new Callback<Result>() {
+        call.enqueue(new Callback<AddressResult[]>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(Call<AddressResult[]> call, Response<AddressResult[]> response) {
                 //hiding progress dialog
 
 
@@ -321,20 +320,19 @@ public class NewAddressPresenter implements NewAddressContract.Presenter {
                 if (response.body() != null) {
 
 
-                    /*mView.showMessage(response.body().getMessage());
+                    if (response.body()[0].getStatus() == 1) {
 
-
-                    if (!response.body().getError()){
+                        mView.showMessage("تم مسح العنوان");
 
 
                         mView.moveToAddressesActivity();
-                    }*/
+                    }
 
                 }
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<AddressResult[]> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
 

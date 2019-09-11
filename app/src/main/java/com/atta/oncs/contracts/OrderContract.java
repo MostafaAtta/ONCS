@@ -3,7 +3,6 @@ package com.atta.oncs.contracts;
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public interface OrderContract {
 
@@ -20,13 +19,13 @@ public interface OrderContract {
 
     interface Presenter{
 
-        void sendImages(int id, ArrayList<MultipartBody.Part> fileUpload, ArrayList<RequestBody> filename);
+        void sendImages(int id, ArrayList<MultipartBody.Part> fileUpload);
 
-        void sendVoice(int id, MultipartBody.Part fileUpload, RequestBody filename, boolean images,
-                       ArrayList<MultipartBody.Part> imageFileUpload, ArrayList<RequestBody> imageFilename);
+        void sendVoice(int id, MultipartBody.Part fileUpload, boolean images,
+                       ArrayList<MultipartBody.Part> imageFileUpload);
 
         void addOrder(int userId, int providerId, String request, boolean images, boolean voice,
-                      MultipartBody.Part voiceFileUpload, RequestBody voiceFilename,
-                      ArrayList<MultipartBody.Part> fileUpload, ArrayList<RequestBody> filename);
+                      MultipartBody.Part voiceFileUpload,
+                      ArrayList<MultipartBody.Part> fileUpload);
     }
 }

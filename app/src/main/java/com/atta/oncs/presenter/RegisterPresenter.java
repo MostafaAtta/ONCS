@@ -34,7 +34,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
         //Defining retrofit api service
         APIService service = retrofit.create(APIService.class);
-        Call<ImageResponse[]> call = service.postImage(APIUrl.ACTION_CHANGE_PROFILE_IMAGE , mobileNumber, "image", fileupload, filename);
+        Call<ImageResponse[]> call = service.postImage(APIUrl.ACTION_CHANGE_PROFILE_IMAGE , mobileNumber, fileupload);
         //calling the api
         call.enqueue(new Callback<ImageResponse[]>() {
             @Override

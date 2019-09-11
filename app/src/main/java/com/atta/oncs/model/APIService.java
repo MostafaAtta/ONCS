@@ -3,7 +3,6 @@ package com.atta.oncs.model;
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -99,9 +98,7 @@ public interface APIService {
     Call<ImageResponse[]> postImage(
             @Query("action") String action,
             @Query("mno") String mobile,
-            @Query("filename") String fileName,
-            @Part MultipartBody.Part filename,
-            @Part("name") RequestBody name
+            @Part MultipartBody.Part filename
     );
 
     @POST("request")
@@ -118,25 +115,17 @@ public interface APIService {
     Call<OrderResult[]> addOrderImages(
             @Query("action") String action,
             @Query("id") int id,
-            @Query("filevoicename") String fileName1,
-            @Part MultipartBody.Part filevoicename1,
-            @Part("name") RequestBody name1,
-            @Query("filevoicename") String fileName2,
-            @Part MultipartBody.Part filevoicename2,
-            @Part("name") RequestBody nam2,
-            @Query("filevoicename") String fileName3,
-            @Part MultipartBody.Part filevoicename3,
-            @Part("name") RequestBody name3
+            @Part MultipartBody.Part filename1,
+            @Part MultipartBody.Part filename2,
+            @Part MultipartBody.Part filename3
     );
 
     @Multipart
     @POST("request")
     Call<OrderResult[]> addOrderVoice(
             @Query("action") String action,
-            @Query("uid") int id,
-            @Query("filevoicename") String fileName,
-            @Part MultipartBody.Part filevoicename,
-            @Part("name") RequestBody name
+            @Query("id") int id,
+            @Part MultipartBody.Part filevoicename
     );
 
     @POST("user")
@@ -169,7 +158,7 @@ public interface APIService {
 
 
     @POST("user")
-    Call<Result> editAddress(
+    Call<AddressResult[]> editAddress(
             @Query("action") String action,
             @Query("id") int id,
             @Query("floor") String floor,
@@ -186,7 +175,7 @@ public interface APIService {
     );
 
     @DELETE("user")
-    Call<Result> deleteAddress(
+    Call<AddressResult[]> deleteAddress(
             @Query("action") String action,
             @Query("id") int id
     );

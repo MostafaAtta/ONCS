@@ -42,6 +42,7 @@ import com.atta.oncs.presenter.OrderPresenter;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -57,6 +58,10 @@ import okhttp3.RequestBody;
 public class OrderFragment extends Fragment implements View.OnClickListener, OrderContract.View {
 
     private View root;
+
+    private TextInputEditText orderText;
+
+    private String order;
 
     private int pId;
 
@@ -76,7 +81,6 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
     private File voiceFile;
     private RequestBody voiceRequestBody;
     private MultipartBody.Part voiceFileUpload;
-    private RequestBody voiceFilename;
 
     private Button addBtn;
 
@@ -90,11 +94,10 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
     private ProgressDialog progressDialog;
 
 
-    ArrayList<File> file;
+    ArrayList<File> files;
 
     ArrayList<RequestBody> requestBody;
     ArrayList<MultipartBody.Part> fileupload ;
-    ArrayList<RequestBody> filename ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,6 +140,8 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
         recordLayout = root.findViewById(R.id.recording_layout);
         imageLayout = root.findViewById(R.id.image_layout);
         addBtn = root.findViewById(R.id.add_order);
+
+        orderText = root.findViewById(R.id.editText);
 
         imageViewRecord.setOnClickListener(this);
         imageViewStop.setOnClickListener(this);
@@ -183,12 +188,35 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
         }else if (view == addImageTxt){
             imageLayout.setVisibility(View.VISIBLE);
         }else if (view == addBtn){
-            showProgress();
-            orderPresenter.addOrder(SessionManager.getInstance(getContext()).getUserId(), pId, "test",fileupload != null, voiceFileName != null,
-                    voiceFileUpload, voiceFilename, fileupload, filename);
+            order = orderText.getText().toString();
+            if (validate()) {
+                showProgress();
+                orderPresenter.addOrder(SessionManager.getInstance(getContext()).getUserId(), pId, order, fileupload != null, voiceFileUpload != null,
+                        voiceFileUpload, fileupload);
+            }
         }
 
     }
+
+
+    private boolean validate() {
+
+        boolean valid = true;
+
+        if(order.isEmpty()){
+
+            orderText.setError("ادحل الطلب الخاص بك");
+            orderText.requestFocus();
+            valid = false;
+        }else {
+            orderText.setError(null);
+        }
+
+
+
+        return valid;
+    }
+
 
 
     public void getImages2(){
@@ -214,6 +242,12 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
             // Get a list of picked images
             List<Image> imageList = ImagePicker.getImages(data);
 
+            files = new ArrayList<>();
+
+            requestBody = new ArrayList<>();
+
+            fileupload = new ArrayList<>();
+
             if (!imageList.isEmpty()|| imageList != null){
 
 
@@ -221,21 +255,22 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
                     imagesBitmap.clear();
                     imagesName.clear();
 
-                    file.clear();
+                    files.clear();
                     requestBody.clear();
                     fileupload.clear();
-                    filename.clear();
                 }
                 for (int i = 0; i < imageList.size(); i++){
                     imagesBitmap.add(getBitmapFromPath(imageList.get(i).getPath()));
                     imagesName.add(imageList.get(i).getName());
                     getStringImage(getBitmapFromPath(imageList.get(i).getPath()));
 
+                    String imgPath = imageList.get(i).getPath();
+                    File currentFile = new File(imageList.get(i).getPath());
 
-                    file.add(new File(imageList.get(i).getPath()));
-                    requestBody.add(RequestBody.create(MediaType.parse("image/*"), file.get(i)));
-                    fileupload.add(MultipartBody.Part.createFormData("filename" + i+1, file.get(i).getName(), requestBody.get(i)));
-                    filename.add(RequestBody.create(MediaType.parse("text/plain"), file.get(i).getName()));
+                    String filename = "filename" + (i+1);
+                    files.add(currentFile);
+                    requestBody.add(RequestBody.create(MediaType.parse("image/*"), files.get(i)));
+                    fileupload.add(MultipartBody.Part.createFormData(filename, files.get(i).getName(), requestBody.get(i)));
 
                 }
 
@@ -305,16 +340,20 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+
+
         File root = android.os.Environment.getExternalStorageDirectory();
         File file = new File(root.getAbsolutePath() + "/ONCS/Audios");
         if (!file.exists()) {
             file.mkdirs();
         }
 
-        voiceFileName =  root.getAbsolutePath() + "/ONCS/Audios/" + String.valueOf(System.currentTimeMillis() + ".mp3");
+        voiceFileName =  root.getAbsolutePath() + "/ONCS/Audios/" + String.valueOf(System.currentTimeMillis() + ".3gp");
         Log.d("filename", voiceFileName);
+
+
         mRecorder.setOutputFile(voiceFileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
         try {
             mRecorder.prepare();
@@ -353,7 +392,6 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
         voiceFile = new File(voiceFileName);
         voiceRequestBody = RequestBody.create(MediaType.parse("audio/*"), voiceFile);
         voiceFileUpload = MultipartBody.Part.createFormData("filevoicename", voiceFile.getName(), voiceRequestBody);
-        voiceFilename = RequestBody.create(MediaType.parse("text/plain"), voiceFile.getName());
 
     }
 
@@ -476,7 +514,9 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
     @Override
     public void showMessage(String error) {
 
-        Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+        if (getContext().getPackageName() !=  null) {
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -503,4 +543,17 @@ public class OrderFragment extends Fragment implements View.OnClickListener, Ord
         getActivity().finish();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mRecorder != null) {
+            mRecorder.release();
+            mRecorder = null;
+        }
+
+        if (mPlayer != null) {
+            mPlayer.release();
+            mPlayer = null;
+        }
+    }
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderResult {
 
-    @SerializedName("id")
+    @SerializedName("status")
     private int status;
 
     @SerializedName("request_id")

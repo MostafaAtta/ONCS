@@ -15,6 +15,8 @@ public class APIUrl {
 
     public static final String ACTION_GET_ALL = "getall";
 
+    public static final String ACTION_GET_CATEGORIES = "getAllCategories";
+
     public static final String ACTION_INSERT = "insert";
 
     public static final String ACTION_UPDATE = "update";
@@ -45,6 +47,9 @@ public class APIUrl {
 
     public static final String ACTION_GET_ADDRESSES = "getbyUid";
 
+    public static final String ACTION_GET_PROVIDER_ORDERS = "getbyprovider";
+
+    public static final String ACTION_UPDATE_ORDER = "update_request_status";
 
 
 }

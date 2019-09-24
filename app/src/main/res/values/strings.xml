@@ -57,9 +57,81 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prompt_order">اكتب الطلبات هنا</string>
     <string name="add">أضافة طلبك</string>
-    <string name="add_image_to_order">أضف صور للطلبك</string>
-    <string name="add_record_to_order">اضف تسجيل للطلبك</string>
+    <string name="add_image_to_order">أضف صور لطلبك</string>
+    <string name="add_record_to_order">اضف تسجيل صوتي لطلبك</string>
     <string name="action_delete">مسح</string>
     <string name="skip">تخطي</string>
+    <string name="join">انضم كمقدم خدمة</string>
+    <string name="address">العناوين</string>
+    <string name="provider">مقدم الخدمة</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="image_to_order">الصور المرفقة</string>
+    <string name="record_to_order">التسجبل الصوتي المرفق</string>
+    <string name="no_record_to_order">لا يوجد تسجيل صوتي</string>
+    <string name="no_image_to_order">لا يوجد صور مرفقة</string>
+    <string name="accept">قبول الطلب</string>
+    <string name="comment">قبول بتعليق</string>
+    <string name="order_number">طلب رقم</string>
+    <string name="price">السعر</string>
+    <string name="decline">رفض الطلب</string>
+    <string name="tax">رقم البطاقة الضريبية</string>
+    <string name="reg">رقم السجل التجاري</string>
+    <string name="website">الموقع الالكتروني</string>
+    <string name="working_hours">مواعيد العمل</string>
+    <string name="from">من</string>
+    <string name="to">الي</string>
+    <string name="provider_name">الاسم</string>
+    <string name="terms_acceptance">تسجيل الدخول يعني موافقتك</string>
+    <string name="terms">الشروط والاحكام</string>
+    <string name="hours">24 ساعة</string>
+
+
+    <string-array name="categories">
+        <item>متاجر</item>
+        <item>فنين</item>
+        <item>دليل المدينة</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>حدد نوع الخدمة</item>
+        <item>متاجر</item>
+        <item>فنين</item>
+    </string-array>
+
+    <string-array name="working_hours">
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>24:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+
+
+
+    <string-array name="categories_english">
+        <item>Main Dish</item>
+        <item>Salad</item>
+        <item>Soup</item>
+    </string-array>
+
 </resources>
 

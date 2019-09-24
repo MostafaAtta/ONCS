@@ -43,7 +43,8 @@ public interface APIService {
     Call<Result[]> verifyMobile(
             @Query("action") String action,
             @Query("mno") String mobile,
-            @Query("rid") int regionId
+            @Query("rid") int regionId,
+            @Query("token") String token
     );
 
 
@@ -76,10 +77,21 @@ public interface APIService {
     );
 
 
+    @GET("facility")
+    Call<ArrayList<Facility>> getFacilities(
+            @Query("action") String action,
+            @Query("rid") int regionId,
+            @Query("type") int type
+    );
+
+
     @GET("category")
     Call<ArrayList<Category>> getCategories(
-            @Query("action") String action
+            @Query("action") String action,
+            @Query("rid") int regionId,
+            @Query("type") int type
     );
+
 
     @POST("user")
     Call<Result[]> updateProfile(
@@ -126,6 +138,31 @@ public interface APIService {
             @Query("action") String action,
             @Query("id") int id,
             @Part MultipartBody.Part filevoicename
+    );
+
+    @FormUrlEncoded
+    @POST("request")
+    Call<Order> getOrder(
+            @Query("action") String action,
+            @Field("id") int id
+    );
+
+    @POST("request")
+    Call<int[]> updateOrder(
+            @Query("action") String action,
+            @Query("id") int id,
+            @Query("request_status") int status,
+            @Query("request_status_note") String note,
+            @Query("price") String price
+
+    );
+
+
+
+    @GET("request")
+    Call<ArrayList<Order>> getProviderOrders(
+            @Query("action") String action,
+            @Query("spid") int id
     );
 
     @POST("user")

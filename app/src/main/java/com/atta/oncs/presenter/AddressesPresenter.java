@@ -51,7 +51,6 @@ public class AddressesPresenter implements AddressesContract.Presenter {
             public void onResponse(Call<ArrayList<Address>> call, Response<ArrayList<Address>> response) {
 
                 if (response.body() != null){
-                    if (response.body() != null){
 
                         ArrayList<Address> addresses = response.body();
 
@@ -63,10 +62,8 @@ public class AddressesPresenter implements AddressesContract.Presenter {
                             mView.updateText();
                         }
 
-                    }
-                }else {
-                    mView.showMessage("An error");
                 }
+
 
             }
 

@@ -13,7 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.atta.oncs.R;
-import com.atta.oncs.ui.home.HomeFragmentDirections;
+import com.atta.oncs.ui.HomeFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -26,6 +26,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     private List<Category> categories;
 
+    private int index;
+
+    public CategoryAdapter(Context context, Activity activity, List<Category> categories, int index) {
+        this.context = context;
+        this.activity = activity;
+        this.categories = categories;
+        this.index = index;
+    }
 
     public CategoryAdapter(Context context, Activity activity, List<Category> categories) {
         this.context = context;
@@ -49,31 +57,34 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         //TODO comment name and uncomment category
         final Category category = categories.get(position);
 
+            myViewHolder.categoryName.setText(category.getName());
 
-        myViewHolder.categoryName.setText(category.getName());
-
-        Picasso.get()
-                .load(category.getCategoryIcon())
-                .resize(120, 120)
-                .centerCrop()
-                .into(myViewHolder.categoryIcon);
-
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int cId = category.getId();
-
-                int rId = SessionManager.getInstance(context).getOrderRegionId();
-
-                String categoryName= category.getName();
-
-
-                Navigation.findNavController(activity, R.id.nav_host_fragment).
-                        navigate(HomeFragmentDirections.actionNavHomeToProviderFragment2(rId, cId,  categoryName));
-
+            if (!category.getCategoryIcon().isEmpty()) {
+                Picasso.get()
+                        .load(category.getCategoryIcon())
+                        .resize(120, 120)
+                        .centerCrop()
+                        .into(myViewHolder.categoryIcon);
             }
-        });
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int cId = category.getId();
+
+                    int rId = SessionManager.getInstance(context).getOrderRegionId();
+
+                    String categoryName = category.getName();
+
+
+                    Navigation.findNavController(activity, R.id.nav_host_fragment).
+                            navigate(HomeFragmentDirections.actionNavHomeToProviderFragment2(rId, cId,index, categoryName));
+
+                }
+            });
+
+
 
     }
 

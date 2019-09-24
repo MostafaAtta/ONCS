@@ -15,6 +15,6 @@ public interface VerifyContract {
 
     interface Presenter{
 
-        void verifyMobile(String mobileNumber, int region);
+        void verifyMobile(String mobileNumber, int region, String token);
     }
 }

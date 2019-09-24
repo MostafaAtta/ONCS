@@ -1,7 +1,6 @@
 package com.atta.oncs.model;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.atta.oncs.ProviderFragmentDirections;
 import com.atta.oncs.R;
+import com.atta.oncs.ui.ProvidersFragmentDirections;
 
 import java.util.List;
 
@@ -21,15 +20,13 @@ public class ProvidersAdapter extends RecyclerView.Adapter<ProvidersAdapter.MyVi
 
     private Activity activity;
 
-    private Context context;
-
     private List<Provider> providers;
 
+    public ProvidersAdapter(Activity activity, List<Provider> providers) {
 
-    public ProvidersAdapter(Context context, Activity activity, List<Provider> providers) {
-        this.context = context;
         this.activity = activity;
         this.providers = providers;
+
     }
 
 
@@ -45,10 +42,10 @@ public class ProvidersAdapter extends RecyclerView.Adapter<ProvidersAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int position) {
 
-        //TODO comment name and uncomment category
-        final Provider provider = providers.get(position);
+            //TODO comment name and uncomment category
+            final Provider provider = providers.get(position);
 
-        myViewHolder.categoryName.setText(provider.getProviderName());
+            myViewHolder.categoryName.setText(provider.getProviderName());
 /*
         Picasso.get()
                 .load(provider.getCategoryIcon())
@@ -59,17 +56,18 @@ public class ProvidersAdapter extends RecyclerView.Adapter<ProvidersAdapter.MyVi
                 /
  */
 
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
 
+                    Navigation.findNavController(activity, R.id.nav_host_fragment).
+                            navigate(ProvidersFragmentDirections.actionProviderFragmentToOrderFragment(provider.getId()));
 
-                Navigation.findNavController(activity, R.id.nav_host_fragment).
-                        navigate(ProviderFragmentDirections.actionProviderFragmentToOrderFragment(provider.getId()));
+                }
+            });
 
-            }
-        });
+
 
     }
 
@@ -84,7 +82,8 @@ public class ProvidersAdapter extends RecyclerView.Adapter<ProvidersAdapter.MyVi
 
         }*/
 
-        return providers.size();
+            return providers.size();
+
     }
 
 

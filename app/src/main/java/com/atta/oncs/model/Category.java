@@ -5,23 +5,23 @@ import com.google.gson.annotations.SerializedName;
 public class Category {
 
     @SerializedName("id")
-    int id;
+    private int id;
 
     @SerializedName("name")
-    String name;
+    private String name;
 
     @SerializedName("name_en")
-    String name_en;
+    private String name_en;
 
-    @SerializedName("delivery")
-    int delivery;
+    @SerializedName("delivary")
+    private int delivery;
 
 
     @SerializedName("non_active")
-    int non_active;
+    private int non_active;
 
     @SerializedName("category_icon")
-    String categoryIcon;
+    private String categoryIcon;
 
 
     public Category(int id, String name, String name_en, int delivery, int non_active) {
@@ -63,5 +63,11 @@ public class Category {
 
     public String getCategoryIcon() {
         return categoryIcon;
+    }
+
+
+    @Override
+    public String toString() {
+        return name ;
     }
 }

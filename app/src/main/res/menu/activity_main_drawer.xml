@@ -23,10 +23,15 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/menu_settings" />
+
         <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_exit_to_app_black_24dp"
-            android:title="@string/menu_logout" />
+            android:id="@+id/nav_join"
+            android:icon="@drawable/ic_add_circle_outline_black_24dp"
+            android:title="@string/join" />
+        <item
+            android:id="@+id/nav_provider"
+            android:icon="@drawable/ic_business_center_black_24dp"
+            android:title="@string/provider" />
     </group>
 
 </menu>

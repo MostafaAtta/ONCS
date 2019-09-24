@@ -27,10 +27,10 @@ public interface HomeContract {
 
     interface Presenter{
 
-        void getRegions();
-
-        void getCategories();
+        void getRegions(int regionId, int type);
 
         void getUserRegion(int id);
+
+        void getCategories(int regionId, int type);
     }
 }

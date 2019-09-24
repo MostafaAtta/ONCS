@@ -52,7 +52,6 @@ public class HomePresenter implements HomeContract.Presenter{
 
                 mView.updateUserRegion(response.body().getName());
 
-                getCategories();
 
             }
 
@@ -65,7 +64,7 @@ public class HomePresenter implements HomeContract.Presenter{
     }
 
     @Override
-    public void getRegions() {
+    public void getRegions(int regionId, int type) {
 
         //building retrofit object
         Retrofit retrofit = new Retrofit.Builder()
@@ -97,22 +96,21 @@ public class HomePresenter implements HomeContract.Presenter{
                     mView.showMessage("An error");
                 }
 
-                getCategories();
-
+                getCategories(regionId, type);
             }
 
             @Override
             public void onFailure(Call<ArrayList<Region>> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
-
-                getCategories();
+                getCategories(regionId, type);
             }
         });
     }
 
+
     @Override
-    public void getCategories() {
+    public void getCategories(int regionId, int type) {
 
         //building retrofit object
         Retrofit retrofit = new Retrofit.Builder()
@@ -127,7 +125,7 @@ public class HomePresenter implements HomeContract.Presenter{
         //User user = new User(name, email, password, password, birthdayString, locationSting);
 
         //defining the call
-        Call<ArrayList<Category>> call = service.getCategories(APIUrl.ACTION_GET_ALL);
+        Call<ArrayList<Category>> call = service.getCategories(APIUrl.ACTION_GET_CATEGORIES, regionId, type);
 
         //calling the api
         call.enqueue(new Callback<ArrayList<Category>>() {
@@ -161,7 +159,5 @@ public class HomePresenter implements HomeContract.Presenter{
             }
         });
     }
-
-
 
 }

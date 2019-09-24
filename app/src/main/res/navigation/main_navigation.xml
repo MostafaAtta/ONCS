@@ -7,47 +7,65 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.atta.oncs.ui.home.HomeFragment"
+        android:name="com.atta.oncs.ui.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_providerFragment2"
-            app:destination="@id/providerFragment" />
+            app:destination="@id/providersFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_nav_home_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_orders"
-        android:name="com.atta.oncs.ui.slideshow.SlideshowFragment"
+        android:name="com.atta.oncs.ui.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.atta.oncs.ui.tools.ToolsFragment"
+        android:name="com.atta.oncs.ui.ToolsFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.atta.oncs.ui.share.ShareFragment"
+        android:name="com.atta.oncs.ui.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 
     <fragment
-        android:id="@+id/nav_logout"
-        android:name="com.atta.oncs.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        android:id="@+id/nav_provider"
+        android:name="com.atta.oncs.ui.ProviderFragment"
+        android:label="@string/provider"
+        tools:layout="@layout/fragment_provider" >
+        <action
+            android:id="@+id/action_nav_provider_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.atta.oncs.ui.profile.ProfileFragment"
+        android:name="com.atta.oncs.ui.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/providerFragment"
-        android:name="com.atta.oncs.ProviderFragment"
-        android:label="fragment_provider"
-        tools:layout="@layout/fragment_provider" >
+        android:id="@+id/providersFragment"
+        android:name="com.atta.oncs.ui.ProvidersFragment"
+        android:label="fragment_providers"
+        tools:layout="@layout/fragment_providers">
+        <action
+            android:id="@+id/action_providerFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_providerFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_providerFragment_to_facilityFragment"
+            app:destination="@id/facilityFragment" />
         <argument
             android:name="rId"
             app:argType="integer" />
@@ -55,19 +73,49 @@
             android:name="cId"
             app:argType="integer" />
         <argument
+            android:name="index"
+            app:argType="integer" />
+        <argument
             android:name="categoryName"
             app:argType="string" />
-        <action
-            android:id="@+id/action_providerFragment_to_orderFragment"
-            app:destination="@id/orderFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
-        android:name="com.atta.oncs.OrderFragment"
+        android:name="com.atta.oncs.ui.OrderFragment"
         android:label="طلب جديد"
         tools:layout="@layout/fragment_order" >
         <argument
             android:name="pId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_join"
+        android:name="com.atta.oncs.ui.JoinFragment"
+        android:label="@string/join"
+        tools:layout="@layout/fragment_join" />
+    <fragment
+        android:id="@+id/facilityFragment"
+        android:name="com.atta.oncs.ui.FacilityFragment"
+        android:label="fragment_facility"
+        tools:layout="@layout/fragment_facility" >
+        <argument
+            android:name="facility"
+            app:argType="com.atta.oncs.model.Facility" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.atta.oncs.ui.OrderDetailsFragment"
+        android:label="@string/order_details"
+        tools:layout="@layout/fragment_order_details" >
+        <argument
+            android:name="order"
+            app:argType="com.atta.oncs.model.Order"
+            app:nullable="true" />
+        <argument
+            android:name="orderId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_nav_provider"
+            app:destination="@id/nav_provider" />
     </fragment>
 </navigation>

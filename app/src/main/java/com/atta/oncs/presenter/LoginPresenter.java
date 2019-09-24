@@ -14,9 +14,9 @@ import retrofit2.Retrofit;
 
 public class LoginPresenter implements LoginContract.Presenter{
 
-    private LoginContract.LoginView mView;
+    private LoginContract.View mView;
 
-    public LoginPresenter(LoginContract.LoginView view) {
+    public LoginPresenter(LoginContract.View view) {
 
         mView = view;
     }

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.atta.oncs.LoginActivity;
-import com.atta.oncs.MainActivity;
+import com.atta.oncs.ui.LoginActivity;
+import com.atta.oncs.ui.MainActivity;
 
 public class SessionManager {
 
@@ -51,6 +51,8 @@ public class SessionManager {
     public static final String KEY_USER_IMAGE = "userImage";
 
     private static final String KEY_USER_PHONE = "phone";
+
+    private static final String KEY_USER_IS_PROVIDER = "isProvider";
 
     private static final String KEY_USER_TOKEN = "token";
 
@@ -137,6 +139,11 @@ public class SessionManager {
         return pref.getInt(KEY_ORDER_REGION_ID, 0);
     }
 
+    public boolean isProvider(){
+        return pref.getInt(KEY_USER_IS_PROVIDER, 0) == 1;
+    }
+
+
     // Get Login State
     public String getEmail(){
         return pref.getString(KEY_EMAIL, "no email");
@@ -177,6 +184,7 @@ public class SessionManager {
         editor.putString(KEY_USER_PHONE, user.getPhone());
         editor.putInt(KEY_USER_REGION_ID, user.getRegionId());
         editor.putString(KEY_USER_IMAGE, user.getProfileImage());
+        editor.putInt(KEY_USER_IS_PROVIDER, user.getProvider());
         editor.apply();
 
 

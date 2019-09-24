@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.atta.oncs.NewAddressActivity;
+import com.atta.oncs.ui.NewAddressActivity;
 import com.atta.oncs.R;
 
 import java.util.List;
@@ -57,9 +57,9 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.MyVi
         final String fullAddress = address.getFullAddress();
 
         myViewHolder.addressName.setText(name);
-        myViewHolder.area.setText(area);
         if (!inProfile) {
             myViewHolder.fullAddress.setText(fullAddress);
+            myViewHolder.area.setText(area);
         }
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +87,6 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.MyVi
             super(itemView);
             if(inProfile) {
                 addressName = itemView.findViewById(R.id.address_name);
-                area = itemView.findViewById(R.id.address_area);
             }else {
 
                 addressName = itemView.findViewById(R.id.address_name_txt);

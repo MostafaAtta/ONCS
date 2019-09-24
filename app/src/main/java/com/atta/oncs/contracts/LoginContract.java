@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface LoginContract {
 
-    interface LoginView{
+    interface View {
 
         void showMessage(String error);
 

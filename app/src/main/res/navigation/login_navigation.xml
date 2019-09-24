@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mobileNumberFragment"
-        android:name="com.atta.oncs.MobileNumberFragment"
+        android:name="com.atta.oncs.ui.MobileNumberFragment"
         android:label="fragment_mobile_number"
         tools:layout="@layout/fragment_mobile_number" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.atta.oncs.RegisterFragment"
+        android:name="com.atta.oncs.ui.RegisterFragment"
         android:label="RegisterFragment" >
         <argument
             android:name="mobileNumber"
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/verificationCodeFragment"
-        android:name="com.atta.oncs.VerificationCodeFragment"
+        android:name="com.atta.oncs.ui.VerificationCodeFragment"
         android:label="fragment_verfication_code"
         tools:layout="@layout/fragment_verfication_code" >
         <action

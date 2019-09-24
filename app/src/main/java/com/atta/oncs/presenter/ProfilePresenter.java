@@ -92,8 +92,8 @@ public class ProfilePresenter implements ProfileContract.Presenter{
 
 
 
-                        mView.showMessage("Done");
-                        mView.showProfile(response.body());
+                    //mView.showMessage("Done");
+                    mView.showProfile(response.body());
 
 
 
@@ -145,7 +145,7 @@ public class ProfilePresenter implements ProfileContract.Presenter{
                     mView.setSpinner(response.body());
 
                 }else {
-                    mView.showMessage("An error");
+                    //mView.showMessage("An error");
                 }
                 getAddresses(id);
             }
@@ -190,7 +190,7 @@ public class ProfilePresenter implements ProfileContract.Presenter{
                     if (response.body()[0].getStatus() == 1) {
 
 
-                        mView.showMessage("Done");
+                        //mView.showMessage("Done");
                         mView.navigateToMain(response.body()[0].getUser());
 
                     }
@@ -235,22 +235,21 @@ public class ProfilePresenter implements ProfileContract.Presenter{
             public void onResponse(Call<ArrayList<Address>> call, Response<ArrayList<Address>> response) {
 
                 if (response.body() != null){
-                    if (response.body() != null){
 
-                        ArrayList<Address> addresses = response.body();
+                    ArrayList<Address> addresses = response.body();
 
-                        if (addresses.size() > 0){
+                    if (addresses.size() > 0){
 
-                            mView.showAddresses(addresses);
-                        }else {
+                        mView.showAddresses(addresses);
+                    }else {
 
-                            mView.showAddressesMessage();
-                        }
-
+                        mView.showAddressesMessage();
                     }
+
                 }else {
-                    mView.showMessage("An error");
+                    mView.showAddressesMessage();
                 }
+
 
             }
 
@@ -258,6 +257,7 @@ public class ProfilePresenter implements ProfileContract.Presenter{
             public void onFailure(Call<ArrayList<Address>> call, Throwable t) {
 
                 mView.showMessage(t.getMessage());
+                mView.showAddressesMessage();
             }
         });
     }

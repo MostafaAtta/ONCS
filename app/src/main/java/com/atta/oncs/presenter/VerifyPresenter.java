@@ -21,7 +21,7 @@ public class VerifyPresenter implements VerifyContract.Presenter{
 
 
     @Override
-    public void verifyMobile(String mobileNumber, int region) {
+    public void verifyMobile(String mobileNumber, int region, String token) {
 
         //building retrofit object
         Retrofit retrofit = new Retrofit.Builder()
@@ -36,7 +36,7 @@ public class VerifyPresenter implements VerifyContract.Presenter{
         //User user = new User(name, email, password, password, birthdayString, locationSting);
 
         //defining the call
-        Call<Result[]> call = service.verifyMobile(APIUrl.ACTION_INSERT, mobileNumber, region);
+        Call<Result[]> call = service.verifyMobile(APIUrl.ACTION_INSERT, mobileNumber, region, token);
 
         //calling the api
         call.enqueue(new Callback<Result[]>() {
